@@ -1,4 +1,4 @@
-# Tes Programming sederhana
+# Tes Programming PHP sederhana
 ## Ichlasul Amal WIjaksana
 aplikasi sederhana input dan hapus data mahasiswa 
 menggunakan php dan mysql
