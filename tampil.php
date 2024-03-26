@@ -1,29 +1,29 @@
 <?php 
-include 'database.php';
-$db = new database();
+ require_once 'database.php';
+$koneksi = new KoneksiDatabase();
 ?>
-<h3>Data Mahasiswa</h3>
- 
-<a href="simpan.php">Input Data</a>
+<h3>Daftar Mahasiswa</h3>
+
+<a href="simpan.php">Tambah Data</a>
 <table border="1">
     <tr>
         <th>No</th>
         <th>Nama</th>
         <th>Alamat</th>
-        <th>Usia</th>
+        <th>Umur</th>
         <th>Opsi</th>
     </tr>
     <?php
-    $no = 1;
-    foreach($db->tampil() as $x){
+    $nomor = 1;
+    foreach($koneksi->ambilData() as $data){
     ?>
     <tr>
-        <td><?php echo $no++; ?></td>
-        <td><?php echo $x['nama']; ?></td>
-        <td><?php echo $x['alamat']; ?></td>
-        <td><?php echo $x['umur']; ?></td>
+        <td><?php echo $nomor++; ?></td>
+        <td><?php echo $data['nama']; ?></td>
+        <td><?php echo $data['alamat']; ?></td>
+        <td><?php echo $data['umur']; ?></td>
         <td>
-        <a href="hapus.php?id=<?php echo $x['id']; ?>">Hapus</a>
+        <a href="hapus.php?id=<?php echo $data['id']; ?>">Hapus</a>
         </td>
     </tr>
     <?php 

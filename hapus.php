@@ -1,15 +1,15 @@
 <?php
-include 'database.php';
+require_once 'database.php';
 
-if(isset($_GET['id']) && !empty($_GET['id'])) {
-    $db = new database();
+if(!empty($_GET['id'])) {
+    $koneksi = new KoneksiDatabase();
     $id = $_GET['id'];
-    $db->hapus($id);
+    $koneksi->hapus($id);
 
     header("Location: tampil.php");
-    exit;
+    die();
 } else {
     header("Location: tampil.php");
-    exit;
+    die();
 }
 ?>

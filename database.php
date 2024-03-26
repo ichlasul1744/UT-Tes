@@ -1,41 +1,38 @@
 <?php
-class Database{
-    var $host = "localhost";
-    var $uname = "root";
-    var $pass = "";
-    var $db = "db_akademik";
-    var $link;
+class KoneksiDatabase {
+    private $server = "localhost";
+    private $pengguna = "root";
+    private $katasandi = "";
+    private $namaDB = "db_akademik";
+    private $koneksi;
 
-    function __construct()
-    {
-        $this->link = mysqli_connect($this->host, $this->uname, $this->pass);
-        mysqli_select_db($this->link, $this->db);
+    public function __construct() {
+        $this->koneksi = new mysqli($this->server, $this->pengguna, $this->katasandi, $this->namaDB);
     }
 
-    function tampil()
-    {
-        $result = mysqli_query($this->link, "SELECT * FROM mahasiswa");
-        return $result;
+    public function ambilData() {
+        $hasil = $this->koneksi->query("SELECT * FROM mahasiswa");
+        return $hasil;
     }
 
-    function simpan($nama, $alamat, $umur){
-        $nama = mysqli_real_escape_string($this->link, $nama);
-        $alamat = mysqli_real_escape_string($this->link, $alamat);
-        $umur = mysqli_real_escape_string($this->link, $umur);
-        
-        $query = "INSERT INTO mahasiswa (nama, alamat, umur) VALUES ('$nama', '$alamat', '$umur')";
-        $result = mysqli_query($this->link, $query);
-        
-        return $result;
+    public function tambah($nama, $alamat, $umur) {
+        $nama = $this->koneksi->real_escape_string($nama);
+        $alamat = $this->koneksi->real_escape_string($alamat);
+        $umur = $this->koneksi->real_escape_string($umur);
+
+        $perintah = "INSERT INTO mahasiswa (nama, alamat, umur) VALUES ('$nama', '$alamat', '$umur')";
+        $hasil = $this->koneksi->query($perintah);
+
+        return $hasil;
     }
 
-    function hapus($id){
-        $id = mysqli_real_escape_string($this->link, $id);
-        
-        $query = "DELETE FROM mahasiswa WHERE id='$id'";
-        $result = mysqli_query($this->link, $query);
-        
-        return $result;
+    public function hapus($id) {
+        $id = $this->koneksi->real_escape_string($id);
+
+        $perintah = "DELETE FROM mahasiswa WHERE id='$id'";
+        $hasil = $this->koneksi->query($perintah);
+
+        return $hasil;
     }
 }
 ?>
